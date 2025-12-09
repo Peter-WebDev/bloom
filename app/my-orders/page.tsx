@@ -4,6 +4,21 @@ import { getSession } from "@/lib/auth";
 import { db } from "@/prisma/client";
 import { redirect } from "next/navigation";
 import { FaBoxOpen } from "react-icons/fa";
+import { Prisma } from "@/generated/prisma";
+
+type UserWithOrders = Prisma.UserGetPayload<{
+  include: {
+    orders: {
+      include: {
+        items: {
+          include: {
+            product: true;
+          };
+        };
+      };
+    };
+  };
+}>;
 
 export default async function MyOrdersPage() {
   const userSession = await getSession();
@@ -28,7 +43,7 @@ export default async function MyOrdersPage() {
         },
       },
     },
-  });
+  }) as UserWithOrders | null;
 
   if (!user) {
     return (
