@@ -1,9 +1,10 @@
 import ProductCard from "@/components/products/ProductCard";
 import { db } from "@/prisma/client";
 import { FaBoxOpen } from "react-icons/fa";
+import { Product } from "@/generated/prisma";
 
 export default async function ProductsPage() {
-    const products = await db.product.findMany({
+    const products: Product[] = await db.product.findMany({
         include: { categories: true },
     });
 

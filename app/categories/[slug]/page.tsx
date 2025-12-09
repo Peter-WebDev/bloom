@@ -1,13 +1,14 @@
 import ProductCard from "@/components/products/ProductCard";
 import { db } from "@/prisma/client";
 import { notFound } from "next/navigation";
+import { Product } from "@/generated/prisma";
 
 export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const category = decodeURIComponent(slug);
 
     // Hämta produkter i denna kategori (befintlig kod)
-    const products = await db.product.findMany({
+    const products: Product[] = await db.product.findMany({
         where: {
             categories: {
                 some: {
@@ -39,7 +40,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             {/* Produktgrid med förbättringar */}
             <section className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-                    {products.map((product: any) => (
+                    {products.map((product) => (
                         <ProductCard key={product.id} product={product} />
                     ))}
                 </div>
