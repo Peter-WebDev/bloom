@@ -15,6 +15,8 @@ export default function SignInPage() {
                 src="/blad-bakgrund.png"
                 alt="Bakgrundsblad"
                 className="absolute inset-0 w-full h-full object-cover opacity-40 pointer-events-none z-0"
+                width={1024}
+                height={1024}
             />
 
             {/* Hero */}
