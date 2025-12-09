@@ -1,7 +1,18 @@
 import { getMyOrders } from "@/app/users/actions";
 import { getSession } from "@/lib/auth";
+import { Prisma } from "@/generated/prisma";
 import { redirect } from "next/navigation";
 import { FaBoxOpen } from "react-icons/fa";
+
+type OrderWithItems = Prisma.OrderGetPayload<{
+  include: {
+    items: {
+      include: {
+        product: true;
+      };
+    };
+  };
+}>;
 
 export default async function ProfilePage() {
   const userSession = await getSession();
@@ -10,7 +21,7 @@ export default async function ProfilePage() {
     redirect("/signin");
   }
 
-  const orders = await getMyOrders(userSession.user.id);
+  const orders = await getMyOrders(userSession.user.id) as OrderWithItems[];
 
   return (
     <>
