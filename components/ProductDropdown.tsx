@@ -24,7 +24,7 @@ export default function ProductDropdown({ isOpen, onClose }: Props) {
                     transition={{ duration: 0.2 }}
                     className="absolute mt-7 w-48 bg-[#516036] text-[#FEFAE1] shadow-xl rounded-xl z-50 overflow-hidden"
                 >
-                    {categories.map((category) => (
+                    {categories.map((category: string) => (
                         <Link
                             key={category}
                             href={`/categories/${encodeURIComponent(category)}`}
