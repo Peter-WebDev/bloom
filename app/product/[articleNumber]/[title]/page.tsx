@@ -1,5 +1,6 @@
 import AddToCartButton from "@/components/buttons/AddToCartButton";
 import { db } from "@/prisma/client";
+import { Product } from "@/generated/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -9,7 +10,7 @@ interface ProductDetailProps {
 
 export async function generateStaticParams() {
     const products = await db.product.findMany({});
-    return products.map(product => ({
+    return products.map((product: Product) => ({
         articleNumber: product.articleNumber,
         title: product.title,
     }));
