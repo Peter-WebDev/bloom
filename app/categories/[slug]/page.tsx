@@ -39,7 +39,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             {/* Produktgrid med förbättringar */}
             <section className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
-                    {products.map((product) => (
+                    {products.map((product: any) => (
                         <ProductCard key={product.id} product={product} />
                     ))}
                 </div>
